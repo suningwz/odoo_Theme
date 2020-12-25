@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<odoo>
+<data noupdate="1">
+    <record id="theme_midnight" model="web.backend.theme">
+        <field name="name">Midnight</field>
+        <field name="body_background_color">#FFFFFF</field>
+        <field name="header_background_color">#263544</field>
+        <field name="theme_color">#263544</field>
+        <field name="hover_color">#1d2531</field>
+        <field name="highlight_color">#d64e07</field>
+        <field name="notification_color">#000000</field>
+        <field name="primary_button_color">#263544</field>
+        <field name="label_color">#000000</field>
+    </record>
+		<record id="theme_ocean" model="web.backend.theme">
+        <field name="name">Ocean</field>
+        <field name="body_background_color">#F1F1F1</field>
+        <field name="header_background_color">#637c83</field>
+        <field name="theme_color">#637c83</field>
+        <field name="hover_color">#728D96</field>
+        <field name="highlight_color">#9EBB9F</field>
+        <field name="notification_color">#a99c89</field>
+        <field name="primary_button_color">#637c83</field>
+        <field name="label_color">#000000</field>
+    </record>
+    <record id="theme_freash" model="web.backend.theme">
+        <field name="name">Fresh</field>
+        <field name="body_background_color">#FFFFFF</field>
+        <field name="header_background_color">#222222</field>
+        <field name="theme_color">#222222</field>
+        <field name="hover_color">#333333</field>
+        <field name="highlight_color">#0174A3</field>
+        <field name="notification_color">#000000</field>
+        <field name="primary_button_color">#222222</field>
+        <field name="label_color">#000000</field>
+    </record>
+    <record id="theme_skyblue" model="web.backend.theme">
+        <field name="name">Sky blue</field>
+        <field name="body_background_color">#FFFFFF</field>
+        <field name="header_background_color">#52accc</field>
+        <field name="theme_color">#52accc</field>
+        <field name="hover_color">#4796b3</field>
+        <field name="highlight_color">#096484</field>
+        <field name="notification_color">#74B6CE</field>
+        <field name="primary_button_color">#52accc</field>
+        <field name="label_color">#000000</field>
+    </record>
+    <record id="theme_coffee" model="web.backend.theme">
+        <field name="name">Coffee</field>
+        <field name="body_background_color">#FFFFFF</field>
+        <field name="header_background_color">#59524c</field>
+        <field name="theme_color">#59524c</field>
+        <field name="hover_color">#46403c</field>
+        <field name="highlight_color">#c7a589</field>
+        <field name="notification_color">#9ea476</field>
+        <field name="primary_button_color">#59524c</field>
+        <field name="label_color">#000000</field>
+    </record>
+    <record id="theme_paranormal" model="web.backend.theme">
+        <field name="name">Paranormal</field>
+        <field name="body_background_color">#FFFFFF</field>
+        <field name="header_background_color">#523f6d</field>
+        <field name="theme_color">#523f6d</field>
+        <field name="hover_color">#413256</field>
+        <field name="highlight_color">#a3b745</field>
+        <field name="notification_color">#d46f15</field>
+        <field name="primary_button_color">#523f6d</field>
+        <field name="label_color">#000000</field>
+    </record>
+    <record id="theme_sunrise" model="web.backend.theme">
+        <field name="name">Sunrise</field>
+        <field name="body_background_color">#FFFFFF</field>
+        <field name="header_background_color">#cf4944</field>
+        <field name="theme_color">#cf4944</field>
+        <field name="hover_color">#be3631</field>
+        <field name="highlight_color">#dd823b</field>
+        <field name="notification_color">#ccaf0b</field>
+        <field name="primary_button_color">#cf4944</field>
+        <field name="label_color">#000000</field>
+    </record>
+    <record id="theme_aubergine" model="web.backend.theme">
+        <field name="name">Aubergine</field>
+        <field name="body_background_color">#FFFFFF</field>
+        <field name="header_background_color">#585a61</field>
+        <field name="theme_color">#585a61</field>
+        <field name="hover_color">#4c4b5e</field>
+        <field name="highlight_color">#e87162</field>
+        <field name="notification_color">#da9b49</field>
+        <field name="primary_button_color">#585a61</field>
+        <field name="label_color">#000000</field>
+    </record>
+
+    <record id="set_default_theme" model="ir.config_parameter">
+        <field name="key">odoo_shoppe_backend_theme.selected_theme</field>
+        <field name="value" ref="odoo_shoppe_backend_theme.theme_midnight"/>
+    </record>
+
+    <!-- Default existing company set background color -->
+    <function name="set_background_cover" model="res.company"/>
+</data>
+</odoo>
