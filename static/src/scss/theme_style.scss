@@ -1,0 +1,245 @@
+$white_color: #FFF;
+
+//////////////////////////////////////
+// General Elements
+//////////////////////////////////////
+.o_list_view .custom-control {
+    height: 20px;
+}
+.o_list_view tfoot {
+    background-color: transparent;
+}
+
+//////////////////////////////////////
+// Header
+//////////////////////////////////////
+.appstheme .o_sub_menu_logo {
+    display: none !important;
+}
+.appstheme li.oneclick_logout {
+    display: none;
+}
+.appstheme .toogle_ul {
+    display: none;
+}
+.appstheme .sidebar_side_menu_toggle {
+    display: none !important;
+}
+.sidebar .o_user_menu {
+    display: none;
+}
+.small_device_menu_toggle {
+    padding: 0px 8px 0 8px;
+}
+.sidebar .small_device_menu_toggle {
+    display: none !important;
+}
+.o_main_navbar .o_user_menu > a {
+    padding-right: 0px;
+}
+
+
+//////////////////////////////////////
+// Sidebar
+//////////////////////////////////////
+.o_web_client > .o_main .o_sub_menu .o_sub_menu_logo .oe_logo_edit {
+    display: none
+}
+.user {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0px;
+    margin: 20px 0 0px;
+}
+.user .photo {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    margin: 0 auto;
+}
+.user .photo img {
+    width: 100%;
+}
+.user .info {
+    display: block;
+    border-top: 1px dashed #ffffff42;
+}
+.user .info > a {
+    text-align: center;
+    color: $white_color;
+    padding: 5px;
+    text-align: center;
+    display: block;
+    font-family: $font_name;
+    text-transform: uppercase;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: auto;
+    margin-right: auto;
+}
+.user .info #userleft li a {
+    color: $white_color;
+    border-radius: 0px;
+    padding-top: 2px;
+    padding-bottom: 10px;
+    text-align: center;
+    display: block;
+    font-family: $font_name;
+}
+.user .info #userleft li a:hover,
+.user .info #userleft li a:focus {
+    background-color: transparent;
+}
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+.o_sub_menu ul.nav {
+    display: block;
+}
+.o_sub_menu ul.nav li {
+    position: relative;
+    display: block;
+}
+.fix_icon_width .user .photo {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    margin: 0 auto 15px auto;
+}
+.o_main .o_sub_menu .o_sub_menu_content .cssmenu .oe_secondary_menu ul.oe_secondary_submenu li a {
+    padding: 9px 15px 9px 21px;
+    font-size: 13.5px;
+    font-family: $font_name;
+    position: relative;
+    display: block;
+}
+
+//////////////////////////////////////
+// Main Content
+//////////////////////////////////////
+.o_web_client > .o_main .o_main_content {
+    background: #FFF;
+}
+.o_control_panel nav {
+    box-shadow: none;
+}
+.o_main .o_main_content .o_form_view {
+    border-bottom: none;
+    background-color: #FFF;
+    background-image: none;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.sidebar .o_form_view .o_form_sheet_bg > .o_form_sheet {
+    margin: 10px 10px;
+    max-width: calc(100% - 20px);
+}
+.table-sm th, .table-sm td {
+    padding: 0.5rem 0.3rem;
+}
+.o_form_view .o_form_statusbar > .o_statusbar_buttons > .btn {
+    min-height: 25px;
+    margin: 2px 3px 2px 0;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border: 1px solid #e2e1e1;
+}
+
+@media (max-width: 767px) {
+    .o_list_view [type="checkbox"] + label {
+        top: -1px;
+    }
+    .appstheme .o_menu_brand {
+        display: none !important;
+    }
+    .appstheme .o_mail_systray_item .o_mail_systray_dropdown {
+        position: absolute;
+        right: -80px;
+        width: 275px;
+    }
+    .sidebar .o_sub_menu_logo {
+        display: none !important;
+    }
+    .o_menu_systray_ap > li .o_mail_systray_dropdown.show,
+    .o_menu_systray_ap > li .o_debug_dropdown.show {
+        left: 55px !important;
+    }
+}
+
+.kanak_new_theme_widget{
+    display:contents !important;
+}
+.colorboxcl{
+    width: 41px;
+    height: 18px;
+    display: table-cell;
+}
+.colorboxmainblock{
+    display: -webkit-inline-box;
+    float: right;
+    margin-top: 3px;
+}
+.o_horizontal .colorboxmainblock{
+    display: -webkit-box;
+    float: none;
+    margin-left: -15px;
+    margin-bottom: 12px;
+}
+header .o_main_navbar{
+    z-index:4;
+}
+
+.openerp .oe_form .oe_form_field_time_delta input {
+    width: 100%;
+}
+
+.openerp .oe_form .oe_form_field_delta div {
+    border: 1px solid;
+    display: inline-block;
+    height: 14px;
+    margin-right: 10px;
+    position: relative;
+    top: 3px;
+    width: 40px;
+}
+
+.oe_list_field_time_delta div {
+    border: 1px solid;
+    display: inline-block;
+    height: 14px;
+    margin-right: 10px;
+    position: relative;
+    top: 3px;
+    width: 40px;
+}
+
+.time_delta_box {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.o_list_view .o_list_table thead {
+    background-color: #FFF;
+    border: none;
+    color: #666666;
+    th {
+        padding: 8px 4px;
+        border-left: none !important;
+        border-bottom: 1px solid #dee2e6 !important;
+    }
+}
+
+.tableheaderright {
+    left: 240px !important;
+}

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="AppsMenu">
+        <t t-jquery="div.dropdown-menu" t-operation="replace">
+            <div class="dropdown-menu" role="menu">
+                <t t-foreach="widget.getApps()" t-as="app">
+                    <a role="menuitem"
+                        class="dropdown-item o_app"
+                        t-att-data-menu-id="app.menuID"
+                        t-att-data-menu-xmlid="app.xmlID"
+                        t-att-data-action-id="app.actionID">
+                        <img class="o_app_icon" t-att-src="app.web_icon_data" t-att-alt="app.name"/>
+                        <div class="o_app_name"><t t-esc="app.name"/></div>
+                    </a>
+                </t>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend="SwitchCompanyMenu">
+        <t t-jquery="li.o_switch_company_menu" t-operation="replace">
+            <li class="o_switch_company_menu">
+                <a role="button" class="dropdown-toggle" data-toggle="dropdown" data-display="static" aria-expanded="false" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                    <span class="oe_topbar_name">
+                        <t t-raw="widget.current_company_name"/>
+                    </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                    <t t-foreach="widget.user_companies" t-as="company">
+                        <div role="menuitem" href="#" class="dropdown-item d-flex py-0 px-0" data-menu="company" t-att-data-company-id="company[0]">
+                            <div class="ml-auto pl-3 pr-3 border border-top-0 border-left-0 border-bottom-0 toggle_company o_py">
+                                <span style="height: 2rem;">
+                                    <t t-if="widget.allowed_company_ids.includes(company[0])">
+                                        <i class="fa fa-fw fa-check-square pt-2"></i>
+                                    </t>
+                                    <t t-if="!widget.allowed_company_ids.includes(company[0])">
+                                        <i class="fa fa-fw fa-square-o pt-2"></i>
+                                    </t>
+                                </span>
+                            </div>
+                            <div class="d-flex flex-grow-1 align-items-center py-0 log_into pl-3 o_py" t-att-style="company[0] === widget.current_company ? 'background-color: lightgrey;' : ''">
+                                <t t-if="widget.allowed_company_ids.includes(company[0])">
+                                    <span class='mr-3 company_label'>
+                                        <t t-esc="company[1]"/>
+                                    </span>
+                                </t>
+                                <t t-if="!widget.allowed_company_ids.includes(company[0])">
+                                    <span class='mr-3 company_label text-muted'>
+                                        <t t-esc="company[1]"/>
+                                    </span>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </li>
+        </t>
+    </t>
+
+    <t t-extend="Menu">
+        <t t-jquery=".o_menu_systray" t-operation="before">
+            <button class="small_device_menu_toggle d-block d-md-none d-lg-none" data-toggle="collapse" data-target=".o_main_navbar > .o_menu_sections">
+                <i class="fa fa-bars"/>
+            </button>
+            <button class="sidebar_side_menu_toggle d-block d-md-none d-lg-none">
+                <i class="fa fa-bars"/>
+            </button>
+        </t>
+    </t>
+    
+    <t t-name="odoo_shoppe_backend_theme.small_device_menu_href">
+        <t t-set="count" t-value="(count || 0) + 1"/>
+        <t t-if="!menu.children.length">
+            <li class="small_device_menu_one">
+                <a role="menuitem" t-attf-class="dropdown-item o_menu_entry_level_#{count}"
+                    t-attf-href="#menu_id=#{menu.id}&amp;action=#{menu.action ? menu.action.split(',')[1] : ''}"
+                    t-att-data-action-model="menu.action ? menu.action.split(',')[0] : ''"
+                    t-att-data-action-id="menu.action ? menu.action.split(',')[1] : ''"
+                    t-att-data-menu="menu.id" 
+                    t-att-data-menu-xmlid="menu.xmlid"
+                    data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                    <span>
+                        <t t-esc="menu.name"/>
+                    </span>
+                </a>
+            </li>
+        </t>
+        <t t-else="">
+            <li class="small_device_menu">
+                <a role="button" href="#" t-attf-class="dropdown-toggle o-no-caret o_menu_header_level_#{count}"
+                        t-att-data-menu-xmlid="menu.xmlid" data-toggle="dropdown" aria-expanded="true">
+                    <span>
+                        <t t-esc="menu.name"/>
+                    </span>
+                    <span class="fa fa-chevron-right float-right"/>
+                </a>
+                <ul class="dropdown-menu show" role="menu">
+                    <t t-foreach="menu.children" t-as="submenu">
+                        <t t-call="odoo_shoppe_backend_theme.small_device_menu_href">
+                            <t t-set="menu" t-value="submenu"/>
+                        </t>
+                    </t>
+                </ul>
+            </li>
+        </t>
+    </t>
+    
+    <t t-name="odoo_shoppe_backend_theme.small_device_menu">
+        <t t-set="isMobile" t-value="true"/>
+        <t t-foreach="menu_data.children" t-as="topmenu">
+            <section t-att-class="topmenu.id">
+                <t t-if="topmenu.children.length">
+                    <t t-foreach="topmenu.children" t-as="submenu">
+                        <t t-call="odoo_shoppe_backend_theme.small_device_menu_href">
+                            <t t-set="menu" t-value="submenu"/>
+                        </t>
+                    </t>
+                </t>
+            </section>
+        </t>
+    </t>
+
+    <t t-name="StatusbarButtons">
+        <div class="o_statusbar_buttons">
+            <div class="btn-group">
+                <a role="button" class="btn btn-primary dropdown-toggle" href="#"
+                    data-toggle="dropdown" aria-expanded="false">More</a>
+                <div class="dropdown-menu" role="menu"/>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="FieldStatusDropdown">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            <t t-if="status" t-esc="status.display_name"/>
+        </button>
+        <div class="dropdown-menu" role="menu">
+            <t t-foreach="selection" t-as="i">
+                <t t-call="FieldStatus.content.button">
+                    <t t-set="is_dropdown" t-value="true"/>
+                </t>
+            </t>
+        </div>
+    </t>
+
+    <t t-name="FieldRadio.Color.Button">
+        <div class="custom-control custom-radio o_radio_item" aria-atomic="true">
+            <input type="radio" class="custom-control-input o_radio_input" t-att-checked="checked ? true : undefined"
+                t-att-data-value="value[0]" t-att-data-index="index" t-att-id="id"/>
+            <label class="custom-control-label o_form_label" t-att-for="id"><t t-esc="value[1]"/></label>
+            <div class="colorboxmainblock" t-if="datas">
+              <span class="colorboxcl" t-if="datas.theme_color" t-attf-style="background:#{datas.theme_color};"/>
+              <span class="colorboxcl"  t-if="datas.hover_color" t-attf-style="background:#{datas.hover_color};"/>
+              <span class="colorboxcl" t-if="datas.highlight_color" t-attf-style="background:#{datas.highlight_color};"/>
+              <span class="colorboxcl"  t-if="datas.notification_color" t-attf-style="background:#{datas.notification_color};"/>
+              <span class="colorboxcl"  t-if="datas.primary_button_color" t-attf-style="background:#{datas.primary_button_color};"/>  
+            </div>
+        </div>
+    </t>
+
+    <t t-name="FieldColorPicker">
+        <span t-if="widget.mode !== 'readonly'">
+            <div class="input-group colorpicker-component">
+                <input type="text"
+                       t-att-id="widget.id_for_label"
+                       t-att-tabindex="widget.attrs.tabindex"
+                       t-att-autofocus="widget.attrs.autofocus"
+                       t-att-placeholder="widget.attrs.placeholder"
+                       t-att-maxlength="widget.field.size"
+                       class="colorpickerg form-control"
+                        />
+                <span class="input-group-addon"><i></i></span>
+            </div>
+        </span>
+        <span t-if="widget.mode === 'readonly'"/>
+    </t>
+
+    <t t-name="UserLeft">
+        <div class="info">
+            <ul class="o_menu_systray_ap" role="menu"/>
+            <a class="collapsed" data-toggle="collapse" href="#userleft" id="user_name" aria-expanded="false">
+                <div class="photo">
+                    <img class="oe_topbar_avatar" t-att-data-default-src="_s + '/web/static/src/img/user_menu_avatar.png'"/>
+                </div>
+                <span class="oe_topbar_name"/> <b class="caret"></b>
+            </a>
+            <div class="collapse" id="userleft" aria-expanded="false" style="height: 0px;">
+                <ul class="nav">
+                    <li>
+                        <a href="#" data-menu="settings">
+                            <i class="fa fa-cog"></i> <span>Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-menu="logout">
+                            <i class="fa fa-sign-out"></i> <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </t>
+
+    <header t-extend="Menu">
+        <t t-jquery=".o_menu_apps" t-operation="before">
+            <t t-set="debug" t-value="widget.getSession().debug"/>
+            <t t-if="debug &amp;&amp; debug === 'assets'">
+                <t t-set="debug_param" t-value="'?&amp;debug=assets'"/>
+            </t>
+            <t t-if="debug &amp;&amp; debug == '1' || debug == True">
+                <t t-set="debug_param" t-value="'?&amp;debug=1'"/>
+            </t>
+            <t t-if="!debug">
+                <t t-set="debug_param" t-value="''"/>
+            </t>
+            <a class="o_sub_menu_logo" t-attf-href="/web#{debug_param}">
+                <span class="oe_logo_edit">Edit Company Data</span>
+                <img src='/web/binary/company_logo'/>
+            </a>
+        </t>
+    </header>
+
+    <t t-extend="ImportView.import_button">
+        <t t-jquery="button" t-operation="replace">
+            <button t-if='widget and widget.importEnabled' type="button" class="btn btn-sm btn-default o_button_import" title="Import">
+                <i class="fa fa-cloud-download btn_ico" aria-hidden="true"></i>
+                <span class="btn_txt">Import</span>
+            </button>
+        </t>
+    </t>
+
+    <t t-extend="KanbanView.buttons">
+        <t t-jquery="div > button" t-operation="replace">
+            <div style="display: inline;">
+                <button type="button" class="btn btn-primary btn-sm o-kanban-button-new" accesskey="c">
+                    <i class="fa fa-plus btn_ico" aria-hidden="true"></i>
+                    <span class="btn_txt"><t t-esc="create_text || _t('Create')"/></span>
+                </button>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend="SearchView.FilterMenu">
+        <t t-jquery="button.o_dropdown_toggler_btn" t-operation="replace">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <span class="fa fa-filter"/> <span class="btn1_txt">Filters</span> <span class="caret"/>
+            </button>
+        </t>
+    </t>
+
+    <t t-extend="SearchView.GroupByMenu">
+        <t t-jquery="button.o_dropdown_toggler_btn" t-operation="replace">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <span class="fa fa-bars"/> <span class="btn1_txt">Group By</span> <span class="caret"/>
+            </button>
+        </t>
+    </t>
+
+    <t t-extend="SearchView.FavoriteMenu">
+        <t t-jquery="button:first" t-operation="replace">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <span class="fa fa-star"/> <span class="btn1_txt">Favorites</span> <span class="caret"/>
+            </button>
+        </t>
+    </t>
+</templates>
