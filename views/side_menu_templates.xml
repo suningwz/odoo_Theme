@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="osbt_assets" inherit_id="web.assets_backend" name="OSBT Assets">
+    <xpath expr="." position="inside">
+        <link type="text/css" rel="stylesheet" media="screen,projection" href="/odoo_shoppe_backend_theme/static/src/css/materialize.css"/>
+        <link rel="stylesheet" href="/odoo_shoppe_backend_theme/static/lib/bootstrap-colorpicker/css/bootstrap-colorpicker.css"/>
+        <script type="text/javascript" src="/odoo_shoppe_backend_theme/static/lib/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+        <script type="text/javascript" src="/odoo_shoppe_backend_theme/static/src/js/materialize.js"></script>
+        <script type="text/javascript" src="/odoo_shoppe_backend_theme/static/src/js/jquery.stickytableheaders.js"/>
+        <script type="text/javascript" src="/odoo_shoppe_backend_theme/static/src/js/theme_scripts.js"/>
+    </xpath>
+</template>
+
+<template id="osbt_theme_assets" name="OSBT Theme Assets">
+    <link rel="stylesheet" type="text/scss" href="/odoo_shoppe_backend_theme/static/src/scss/themes/variable.scss"/>
+    <link type="text/scss" rel="stylesheet" href="/odoo_shoppe_backend_theme/static/src/scss/theme_style.scss"/>
+    <link rel="stylesheet" type="text/scss" href="/odoo_shoppe_backend_theme/static/src/scss/themes/style.scss"/>
+</template>
+
+<template id="osbt_assets_wysiwyg" inherit_id="web_editor.assets_wysiwyg" name="OSBT Wysiwyg Editor Assets">
+    <xpath expr="." position="inside">
+        <link rel="stylesheet" type="text/scss" href="/odoo_shoppe_backend_theme/static/src/scss/wysiwyg.scss"/>
+    </xpath>
+</template>
+
+<template id="webclient_bootstrap_community" inherit_id="web.webclient_bootstrap">
+    <xpath expr="//t[@t-call='web.conditional_assets_tests'][last()]" position="after">
+        <t t-call-assets="odoo_shoppe_backend_theme.osbt_theme_assets" t-js="false"/>
+    </xpath>
+    <xpath expr="//t[@t-set='body_classname']" position="after">
+        <div class="o_main">
+            <div t-attf-class="o_sub_menu #{'fullmenu' if request.env.user and request.env.user.company_id and request.env.user.company_id.menu_style == 'fullmenu' else 'mobile_views_menu sidemenu'}" groups="base.group_user,base.group_portal">
+                <t t-call="odoo_shoppe_backend_theme.menu_secondary"/>
+            </div>
+        </div>
+    </xpath>
+    <xpath expr="//t[@t-set='body_classname']" position="replace">
+        <t t-set="body_classname" t-value="'o_web_client dark_mode_knk sidebar' if request.env.user and request.env.user.company_id and request.env.user.company_id.is_dark_mode else 'o_web_client sidebar'"/>
+        <t t-set="body_classname" t-value="body_classname +' '+ request.env.user.company_id.button_style if request.env.user and request.env.user.company_id and request.env.user.company_id.button_style else body_classname"/>
+    </xpath>
+</template>
+
+<template id="menu_secondary">
+    <div class="o_sub_menu_content">
+        <t t-foreach="menu_data['children']" t-as="menu">
+            <div class="cssmenu">
+                <h3 class="menu_heading arrow_sb_menu" t-if="menu['children']" t-att-title="menu['name']">
+                  <img t-attf-src="data:image/png;base64,#{menu['web_icon_data']}" class="image_icon_menu" t-if="not menu['menu_icon']"/>
+                  <i t-att-class="menu['menu_icon'] or 'fa fa-file-text-o'" t-if="menu['menu_icon']"/>
+                  <span class="menu_title mobile_view_title_hide"><t t-esc="menu['name']"/></span>
+                </h3>
+                <h3 class="menu_heading" t-if="not menu['children']" t-att-title="menu['name']">
+                    <t t-if="debug and debug == 'assets'">
+                        <t t-set="debug_param" t-value="'?debug=assets'"/>
+                    </t>
+                    <t t-if="debug and debug == '1' or debug== True">
+                        <t t-set="debug_param" t-value="'?debug=1'"/>
+                    </t>
+                    <t t-if="not debug">
+                        <t t-set="debug_param" t-value="''"/>
+                    </t>
+                    <a t-att-href="'/web%s#menu_id=%s&amp;action=%s' % (debug_param, menu['id'], menu['action'] and menu['action'].split(',')[1] or '')"
+                        t-att-data-menu="menu['id']"
+                        t-att-data-action-model="menu['action'] and menu['action'].split(',')[0] or ''"
+                        t-att-data-action-id="menu['action'] and menu['action'].split(',')[1] or ''"
+                        t-att-debug="debug_param" class="oooooooooo">
+                        <img t-attf-src="data:image/png;base64,#{menu['web_icon_data']}" class="image_icon_menu" t-if="not menu['menu_icon']"/>
+                        <i t-att-class="menu['menu_icon'] or 'fa fa-file-text-o'" t-if="menu['menu_icon']"/>
+                        <span class="menu_title mobile_view_title_hide"><t t-esc="menu['name']"/></span>
+                    </a>
+                </h3>
+                <div style="display: none" t-att-class="'oe_secondary_menu' if menu['children'] else 'oe_secondary_menu not_child_menu_secandary'" t-att-data-menu-parent="menu['id']">
+                  <h6 class="side_menu_heading" t-if="menu['children']" t-att-title="menu['name']">
+                    <span><t t-esc="menu['name']"/></span>
+                  </h6>
+                  <t t-foreach="menu['children']" t-as="menu">
+                    <div t-att-class="'oe_secondary_menu_section' if not menu['children'] else 'oe_secondary_menu_section nsms_item'">
+                      <t t-if="menu['children']"><t t-esc="menu['name']" /></t>
+                      <t t-if="not menu['children']"><t t-call="odoo_shoppe_backend_theme.menu_link" /></t>
+                    </div>
+                    <t t-call="odoo_shoppe_backend_theme.menu_secondary_submenu" />
+                  </t>
+                </div>
+            </div>
+        </t>
+    </div>
+    <div class="user"></div>
+</template>
+
+<template id="menu_secondary_submenu">
+    <ul t-if="menu['children']" class="oe_secondary_submenu nav nav-pills nav-stacked">
+        <li t-foreach="menu['children']" t-as="menu">
+            <t t-call="odoo_shoppe_backend_theme.menu_link"/>
+            <t t-call="odoo_shoppe_backend_theme.menu_secondary_submenu"/>
+        </li>
+    </ul>
+</template>
+
+<template id="menu_link">
+    <t t-set="debug_param" t-value="debug_param if debug_param else ''"/>
+    <a t-att-href="'/web%s#menu_id=%s&amp;action=%s' % (debug_param, menu['id'], menu['action'] and menu['action'].split(',')[1] or '')"
+        t-att-class="'oe_menu_toggler' if menu.get('children') else 'oe_menu_leaf'"
+        t-att-data-menu="menu['id']"
+        t-att-data-menu-xmlid="menu.get('xmlid')"
+        t-att-data-action-model="menu['action'] and menu['action'].split(',')[0] or None"
+        t-att-data-action-id="menu['action'] and menu['action'].split(',')[1] or None">
+        <span class="oe_menu_text">
+            <t t-esc="menu['name']"/>
+        </span>
+    </a>
+</template>
+
+</odoo>

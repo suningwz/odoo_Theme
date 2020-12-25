@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="icon_edit_menu_access" model="ir.ui.view">
+        <field name="name">ir.ui.menu.form</field>
+        <field name="model">ir.ui.menu</field>
+        <field name="inherit_id" ref="base.edit_menu_access"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="menu_icon"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_theme_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.theme.config.settings.view.form.inherit.base.setup</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="100"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Theme Settings" string="Theme Settings" data-key="odoo_shoppe_backend_theme">
+                    <div id="theme_documents">
+                        <h2>Theme Configuration</h2>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-12 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Choose Theme</span>
+                                    <div class="content-group">
+                                        <div class="mt16 ml8 row">
+                                            <field name="select_theme" class="oe_inline kanak_new_theme_widget" required="1" widget="color_radio" options="{'horizontal': true}"/>
+                                        </div>
+                                    </div>
+                                    <button string="New" type="object" name="action_new_theme_create" class="oe_highlight" />
+                                    <button string="Edit" type="object" name="action_update_theme" class="oe_highlight ml8" />
+                                    <button string="Remove" type="object" name="action_delete_theme" class="oe_highlight ml8" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="theme_advance_documents">
+                        <h2>Style Configuration</h2>
+                        <div class="row o_settings_container">
+                             <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Choose Menu Style</span>
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <field name="menu_style" class="oe_inline" widget="radio" nolabel="1" required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box mt16" attrs="{'invisible': [('menu_style','=','apps')]}">
+                                <div class="o_setting_left_pane">
+                                    <field name="is_sidebar_bg_img"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Sidebar Background Image</span>
+                                    <div class="content-group" attrs="{'invisible': [('is_sidebar_bg_img','=', False)]}">
+                                        <div class="mt16 ml8 row">
+                                            <field name="app_background_image" class="oe_inline oe_avatar" widget="image" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box mt16"  attrs="{'invisible': ['|',('menu_style','=','sidemenu'), ('menu_style','=','fullmenu')]}">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Background Image</span>
+                                    <div class="content-group">
+                                        <div class="mt16 ml8 row">
+                                            <field name="bg_img" class="oe_inline oe_avatar" widget="image"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="o_setting_left_pane">
+                                    <field name="is_app_background_color"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Background Color</span>
+                                    <div class="content-group">
+                                        <div class="mt16 ml8 row">
+                                            <field name="app_background_color" class="oe_inline" widget="colorpicker"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Choose Font</span>
+                                    <div class="content-group">
+                                        <div class="mt16 ml8">
+                                            <field name="font_name" class="oe_inline" widget="radio" nolabel="1" required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Choose Button Style</span>
+                                    <div class="content-group">
+                                        <div class="mt16 ml8">
+                                            <field name="button_style" class="oe_inline" widget="radio" nolabel="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Choose Tab Style</span>
+                                    <div class="content-group">
+                                        <div class="mt16 ml8">
+                                            <field name="tabs_style" class="oe_inline" widget="radio" nolabel="1" required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Choose Icon Style</span>
+                                    <div class="content-group">
+                                        <div class="mt16 ml8">
+                                            <field name="icon_style" class="oe_inline" widget="radio" nolabel="1" required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="is_dark_mode"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Enable Night Mode <sup>(beta)</sup></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_theme_configuration" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'odoo_shoppe_backend_theme'}</field>
+    </record>
+
+    <record id="view_theme_select_form" model="ir.ui.view">
+        <field name="name">web.backend.theme.form</field>
+        <field name="model">web.backend.theme</field>
+        <field name="arch" type="xml">
+            <form string="Create Theme" class="o_select_theme">
+                <label for="name">Name</label>
+                <h1><field name="name"/></h1>
+                <group string="Background Color">
+                    <group>
+                        <field name="body_background_color" widget="colorpicker"/>
+                        <field name="header_background_color" widget="colorpicker"/>
+                    </group>
+                    <group>
+                        <field name="theme_color" widget="colorpicker"/>
+                        <field name="hover_color" widget="colorpicker"/>
+                        <field name="highlight_color" widget="colorpicker"/>
+                    </group>
+                </group>
+                <group string="More Color">
+                    <group>
+                        <field name="primary_button_color" widget="colorpicker"/>
+                        <field name="label_color" widget="colorpicker"/>
+                    </group>
+                    <group>
+                        <field name="notification_color" widget="colorpicker"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>
